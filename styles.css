@@ -115,6 +115,8 @@ body {
   gap: 1.25rem;
 }
 
+/* Mobile/tablet: timer first (DOM order), then poem — so the countdown stays visible */
+
 #letter {
   display: none;
   width: 100%;

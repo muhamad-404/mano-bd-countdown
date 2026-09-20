@@ -10,10 +10,14 @@ function showLoveLetter() {
 }
 
 function startClock(config) {
-  const startMs = new Date(config.memorialDate).getTime();
+  const targetMs = new Date(config.targetDate).getTime();
+  if (!Number.isFinite(targetMs)) {
+    console.error("Invalid CONFIG.targetDate:", config.targetDate);
+    return;
+  }
   const digits = createClockDOM(config);
-  timeElapse(startMs, digits);
-  setInterval(() => timeElapse(startMs, digits), AnimationConfig.TIME_UPDATE_INTERVAL);
+  updateCountdown(targetMs, digits);
+  setInterval(() => updateCountdown(targetMs, digits), AnimationConfig.TIME_UPDATE_INTERVAL);
 }
 
 // ===========================

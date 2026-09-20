@@ -1,40 +1,36 @@
 const CONFIG = {
-  couple: {
-    name1: "Ms.Wang",
-    name2: "Mr.Qi",
-    connector: "和",
-    together: "在一起"
+  person: {
+    name: "Mahnoor",
+    nickname: "Mano"
   },
-  memorialDate: "2017-12-25T00:00:00",
+  // Absolute instant: 00:00 on 25 Oct 2026 in Pakistan (Asia/Karachi, UTC+5)
+  targetDate: "2026-10-25T00:00:00+05:00",
+  togetherSince: "2023-03-17",
+  timerHeadline: "Mano ki special day tak…",
   letter: {
     paragraph1: [
-      "哪天我老了，还跟和你热恋一样，",
-      "桌前给你发消息，",
-      "灯盏微黄，窗外风雨千墙，",
-      "半天酿出一句我想你了，",
-      "内心的原野，",
-      "时而流星追月，时而万马奔腾。"
+      "Mano, meri Mahnoor —",
+      "17 March 2023 se tum meri duniya ho.",
+      "Har din tumhare saath ek nayi dua lagti hai."
     ],
     paragraph2: [
-      "有时有月亮，",
-      "我就做一个九曲十八弯的梦，",
-      "每个转角都与你有关，",
-      "你对我笑了一下，",
-      "醒来我就发上一天呆。"
+      "25 October tumhara din hai —",
+      "aur yeh countdown usi special night / morning tak hai,",
+      "jab Pakistan mein 25 October 2026 shuru hoga.",
+      "Exact zero pe — bas tumhare birthday ke liye."
     ],
     paragraph3: [
-      "现在我在长满星星的夜里，",
-      "阶前红豆坠满枝，",
-      "醉过知酒浓，",
-      "无物抵相思。"
+      "I love you, Mano.",
+      "This little page is waiting with me",
+      "for your special day."
     ]
   },
   time: {
-    prefix: "第 ",
-    day: "天",
-    hour: "小时",
-    minute: "分钟",
-    second: "秒"
+    prefix: "Sirf ",
+    day: "din",
+    hour: "ghantay",
+    minute: "minute",
+    second: "second"
   },
-  seedText: "Miss You"
+  seedText: "For Mano"
 };

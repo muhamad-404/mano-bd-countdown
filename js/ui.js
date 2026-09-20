@@ -33,7 +33,7 @@ function createClockDOM(config) {
   return digits;
 }
 
-function timeElapse(startMs, digits) {
+function updateCountdown(targetMs, digits) {
   const secondsPerMinute = 60;
   const secondsPerHour = secondsPerMinute * 60;
   const secondsPerDay = secondsPerHour * 24;
@@ -42,13 +42,12 @@ function timeElapse(startMs, digits) {
     return String(value).padStart(2, "0");
   }
 
-  const totalSeconds = Math.floor((Date.now() - startMs) / 1000);
-  const todaySeconds = totalSeconds % secondsPerDay;
-  const days = Math.floor(totalSeconds / secondsPerDay);
-
-  const hours = Math.floor(todaySeconds / secondsPerHour);
-  const minutes = Math.floor((todaySeconds % secondsPerHour) / secondsPerMinute);
-  const seconds = todaySeconds % secondsPerMinute;
+  const remainingSeconds = Math.max(0, Math.floor((targetMs - Date.now()) / 1000));
+  const days = Math.floor(remainingSeconds / secondsPerDay);
+  const afterDays = remainingSeconds % secondsPerDay;
+  const hours = Math.floor(afterDays / secondsPerHour);
+  const minutes = Math.floor((afterDays % secondsPerHour) / secondsPerMinute);
+  const seconds = afterDays % secondsPerMinute;
 
   digits.days.textContent = String(days);
   digits.hours.textContent = twoDigits(hours);
@@ -121,13 +120,6 @@ function initContent(config) {
     });
   }
 
-  function createName(text) {
-    const span = document.createElement("span");
-    span.className = "name";
-    span.textContent = text;
-    return span;
-  }
-
   const paragraphs = [
     config.letter.paragraph1,
     config.letter.paragraph2,
@@ -140,10 +132,10 @@ function initContent(config) {
 
   const clockText = document.getElementById("clock-text");
   clockText.textContent = "";
-  clockText.appendChild(createName(config.couple.name1));
-  clockText.appendChild(document.createTextNode(` ${config.couple.connector} `));
-  clockText.appendChild(createName(config.couple.name2));
-  clockText.appendChild(document.createTextNode(` ${config.couple.together}`));
+  const headline = document.createElement("span");
+  headline.className = "name";
+  headline.textContent = config.timerHeadline;
+  clockText.appendChild(headline);
 }
 
 // ===========================
