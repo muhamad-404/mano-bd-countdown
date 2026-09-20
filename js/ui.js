@@ -108,9 +108,74 @@ function scaleContent() {
 // Content Initialization
 // ===========================
 
+const PKT_TZ = "Asia/Karachi";
+
+/** YYYY-MM-DD for an instant in Pakistan Standard Time. */
+function getPakistanDateString(date = new Date()) {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: PKT_TZ,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).format(date);
+}
+
+/**
+ * Optional override for testing: ?letterDate=2026-10-20
+ * (Pakistan calendar date, YYYY-MM-DD)
+ */
+function getLetterSelectionDateString() {
+  try {
+    const param = new URLSearchParams(window.location.search).get("letterDate");
+    if (param && /^\d{4}-\d{2}-\d{2}$/.test(param)) {
+      return param;
+    }
+  } catch (_) {
+    /* ignore */
+  }
+  return getPakistanDateString();
+}
+
+function letterSetFallback(config) {
+  return {
+    id: "fallback",
+    timerHeadline: config.timerHeadline,
+    paragraph1: config.letter.paragraph1,
+    paragraph2: config.letter.paragraph2,
+    paragraph3: config.letter.paragraph3
+  };
+}
+
+/** Pick letter set by Pakistan calendar date (inclusive start/end). */
+function getActiveLetterSet(config, dateStr = getLetterSelectionDateString()) {
+  const sets = config.letterSets;
+  if (!Array.isArray(sets) || sets.length === 0) {
+    return letterSetFallback(config);
+  }
+
+  const matched = sets.find(
+    (set) => dateStr >= set.start && dateStr <= set.end
+  );
+  if (matched) {
+    console.info("[letterSets] selected", matched.id, "for", dateStr);
+    return matched;
+  }
+
+  if (dateStr < sets[0].start) {
+    console.info("[letterSets] before range →", sets[0].id, "for", dateStr);
+    return sets[0];
+  }
+
+  const last = sets[sets.length - 1];
+  console.info("[letterSets] after range →", last.id, "for", dateStr);
+  return last;
+}
+
 function initContent(config) {
   const letter = document.getElementById("letter");
   letter.textContent = "";
+
+  const active = getActiveLetterSet(config);
 
   function addParagraph(lines) {
     lines.forEach(line => {
@@ -121,9 +186,9 @@ function initContent(config) {
   }
 
   const paragraphs = [
-    config.letter.paragraph1,
-    config.letter.paragraph2,
-    config.letter.paragraph3
+    active.paragraph1,
+    active.paragraph2,
+    active.paragraph3
   ];
   paragraphs.forEach((lines, index) => {
     if (index > 0) letter.appendChild(document.createElement("br"));
@@ -134,7 +199,7 @@ function initContent(config) {
   clockText.textContent = "";
   const headline = document.createElement("span");
   headline.className = "name";
-  headline.textContent = config.timerHeadline;
+  headline.textContent = active.timerHeadline || config.timerHeadline;
   clockText.appendChild(headline);
 }
 
