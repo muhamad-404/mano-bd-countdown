@@ -145,22 +145,41 @@ const CONFIG = {
 
   // Tree Awakening finale (fires when countdown hits 0)
   birthdayFinale: {
-    timerHeadline: "Aaj tumhara din hai, Mano",
+    timerHeadline: "Happy Birthday, meri Mano. ❤️",
     letter: {
-      paragraph1: [
-        "Mano — aaj woh din aa gaya.",
-        "Tree ne dil barsa diye, aur main sirf yeh kehna chahta hoon:",
-        "tum meri zindagi ki sabse soft, sabse pyari yaad ho."
-      ],
-      paragraph2: [
-        "University ke hidden corners, library ke moments,",
-        "tumhari smile, tumhari awaaz, tumhari choti choti baatein —",
-        "sab aaj bhi mere dil mein bilkul clear hain."
-      ],
-      paragraph3: [
-        "Happy Birthday, Mahnoor.",
-        "Khush raho, muskurati raho —",
-        "aur jaano ke main tumhein ab bhi bohat pyar karta hoon, Mano."
+      paragraphs: [
+        [
+          "Happy Birthday, meri Mano. ❤️",
+          "Finally.",
+          "25 October aapka Special day aa gaya."
+        ],
+        [
+          "Main chahta tha ke tumhare birthday ke liye kuch aisa banaun jo sirf ek message na ho,",
+          "kuch aisa jo tum khol kar dekho, thora sa smile karo, aur bolo:",
+          "\"Okay... this is actually cute.\" 😂❤️"
+        ],
+        [
+          "I hope tumhara aaj ka din bohat khoobsurat ho.",
+          "I hope tumhein bohat saari khushiyan milen,",
+          "tumhari aankhon mein excitement ho, tumhare face par smile ho,",
+          "aur tumhein woh saari cheezein milen jin ki tum dil se wish karti ho."
+        ],
+        [
+          "Aur haan, birthday girl...",
+          "Aaj tum officially ek saal aur older ho gayi ho.",
+          "Lekin mere liye tum ab bhi meri wohi Mano ho —",
+          "thori si pagal,",
+          "bohat cute,",
+          "kabhi annoying,",
+          "kabhi adorable,",
+          "aur somehow... meri favourite person. ❤️"
+        ],
+        [
+          "Happy Birthday, Mahnoor.",
+          "I hope this little surprise made your day a little more special.",
+          "I love you, Mano.",
+          "Always. ❤️"
+        ]
       ]
     }
   }

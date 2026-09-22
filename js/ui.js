@@ -65,11 +65,31 @@ function shouldForceBirthday() {
   }
 }
 
+/** Dev helper: ?secondsLeft=10 → countdown reaches zero in N seconds from page clock start. */
+function getForcedSecondsLeft() {
+  try {
+    const raw = new URLSearchParams(window.location.search).get("secondsLeft");
+    if (raw == null || raw === "") return null;
+    const n = Number.parseInt(raw, 10);
+    if (!Number.isFinite(n) || n < 0) return null;
+    return n;
+  } catch (_) {
+    return null;
+  }
+}
+
 function resolveCountdownTargetMs(config) {
   if (shouldForceBirthday()) {
     console.info("[finale] forceBirthday=1 — treating target as already passed");
     return Date.now() - 1000;
   }
+
+  const secondsLeft = getForcedSecondsLeft();
+  if (secondsLeft != null) {
+    console.info(`[finale] secondsLeft=${secondsLeft} — short test countdown`);
+    return Date.now() + secondsLeft * 1000;
+  }
+
   const targetMs = new Date(config.targetDate).getTime();
   if (!Number.isFinite(targetMs)) {
     console.error("Invalid CONFIG.targetDate:", config.targetDate);

@@ -282,8 +282,8 @@ body {
   :root {
     --tree-shift-x: 260px;
     --letter-size: 16px;
-    --clock-label-size: 28px;
-    --digit-size: 64px;
+    --clock-label-size: 20px;
+    --digit-size: 40px;
   }
 
   body {
@@ -338,9 +338,11 @@ body {
   #letter {
     position: absolute;
     width: 400px;
-    height: 425px;
+    max-height: 460px;
+    height: auto;
+    overflow-y: auto;
     left: 60px;
-    top: 80px;
+    top: 50px;
     margin: 0;
     max-width: none;
     line-height: 1.4;
@@ -350,14 +352,17 @@ body {
   #clock-box {
     position: absolute;
     left: 60px;
-    top: 550px;
-    width: auto;
-    max-width: none;
+    top: 530px;
+    width: 480px;
+    max-width: 480px;
     margin: 0;
     pointer-events: auto;
   }
 
+  /* Keep timer flush with headline / letter (no extra indent into the tree) */
   #clock {
-    margin-left: 48px;
+    margin-left: 0;
+    max-width: 100%;
+    line-height: 1.35;
   }
 }

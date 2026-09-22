@@ -90,7 +90,7 @@ async function waitForUserClick(seed, canvas) {
       if (e.type === "touchstart") e.preventDefault();
       const point = getCanvasPoint(e, canvas);
       if (seed.hover(point.x, point.y)) {
-        document.getElementById("bgm").play().catch(() => {});
+        playBackgroundMusic();
         canvas.removeEventListener("click", handler);
         canvas.removeEventListener("touchstart", handler);
         resolve();
@@ -226,11 +226,14 @@ async function typewriter(el, speed = 100) {
 
 function fillLetterParagraphs(letterEl, letterConfig) {
   letterEl.textContent = "";
-  const blocks = [
-    letterConfig.paragraph1,
-    letterConfig.paragraph2,
-    letterConfig.paragraph3
-  ];
+  const blocks = Array.isArray(letterConfig.paragraphs)
+    ? letterConfig.paragraphs
+    : [
+        letterConfig.paragraph1,
+        letterConfig.paragraph2,
+        letterConfig.paragraph3
+      ].filter(Boolean);
+
   blocks.forEach((lines, index) => {
     if (index > 0) letterEl.appendChild(document.createElement("br"));
     lines.forEach((line) => {
@@ -248,6 +251,25 @@ function setClockHeadline(text) {
   headline.className = "name";
   headline.textContent = text;
   clockText.appendChild(headline);
+}
+
+function playBackgroundMusic() {
+  const bgm = document.getElementById("bgm");
+  if (!bgm) return;
+  bgm.play().catch(() => {});
+}
+
+/** Stop intro BGM and start birthday track (once, when BD letter begins). */
+function switchToBirthdayMusic() {
+  const bgm = document.getElementById("bgm");
+  const bd = document.getElementById("bd-music");
+  if (bgm) {
+    bgm.pause();
+    try { bgm.currentTime = 0; } catch (_) { /* ignore */ }
+  }
+  if (!bd) return;
+  try { bd.currentTime = 0; } catch (_) { /* ignore */ }
+  bd.play().catch(() => {});
 }
 
 async function runTreeAwakeningFinale(tree, config) {
@@ -287,6 +309,9 @@ async function runTreeAwakeningFinale(tree, config) {
 
   fillLetterParagraphs(letter, finale.letter);
   content.classList.remove("content--finale-dim");
+
+  // BD message is about to type — switch soundtrack here (not earlier).
+  switchToBirthdayMusic();
 
   if (typeof isDesktopLayout === "function" ? !isDesktopLayout() : !window.matchMedia("(min-width: 1024px)").matches) {
     letter.scrollIntoView({ behavior: "smooth", block: "nearest" });
