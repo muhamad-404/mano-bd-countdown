@@ -53,6 +53,29 @@ function updateCountdown(targetMs, digits) {
   digits.hours.textContent = twoDigits(hours);
   digits.minutes.textContent = twoDigits(minutes);
   digits.seconds.textContent = twoDigits(seconds);
+
+  return remainingSeconds;
+}
+
+function shouldForceBirthday() {
+  try {
+    return new URLSearchParams(window.location.search).get("forceBirthday") === "1";
+  } catch (_) {
+    return false;
+  }
+}
+
+function resolveCountdownTargetMs(config) {
+  if (shouldForceBirthday()) {
+    console.info("[finale] forceBirthday=1 — treating target as already passed");
+    return Date.now() - 1000;
+  }
+  const targetMs = new Date(config.targetDate).getTime();
+  if (!Number.isFinite(targetMs)) {
+    console.error("Invalid CONFIG.targetDate:", config.targetDate);
+    return null;
+  }
+  return targetMs;
 }
 
 // ===========================

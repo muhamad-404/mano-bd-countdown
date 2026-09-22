@@ -141,5 +141,27 @@ const CONFIG = {
     minute: "minute",
     second: "second"
   },
-  seedText: "For Mano"
+  seedText: "For Mano",
+
+  // Tree Awakening finale (fires when countdown hits 0)
+  birthdayFinale: {
+    timerHeadline: "Aaj tumhara din hai, Mano",
+    letter: {
+      paragraph1: [
+        "Mano — aaj woh din aa gaya.",
+        "Tree ne dil barsa diye, aur main sirf yeh kehna chahta hoon:",
+        "tum meri zindagi ki sabse soft, sabse pyari yaad ho."
+      ],
+      paragraph2: [
+        "University ke hidden corners, library ke moments,",
+        "tumhari smile, tumhari awaaz, tumhari choti choti baatein —",
+        "sab aaj bhi mere dil mein bilkul clear hain."
+      ],
+      paragraph3: [
+        "Happy Birthday, Mahnoor.",
+        "Khush raho, muskurati raho —",
+        "aur jaano ke main tumhein ab bhi bohat pyar karta hoon, Mano."
+      ]
+    }
+  }
 };

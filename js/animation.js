@@ -58,7 +58,14 @@ const AnimationConfig = {
   HEART_JUMP_INTERVAL: 25,
   MAX_FALLING_HEARTS: 4,
   FALLING_SPAWN_CHANCE: 0.22,
-  TIME_UPDATE_INTERVAL: 1000
+  TIME_UPDATE_INTERVAL: 1000,
+  FINALE_STORM_MS: 5000,
+  FINALE_PULSE_MS: 800,
+  FINALE_LETTER_FADE_MS: 400,
+  FINALE_MAX_FALLING: 28,
+  FINALE_SPAWN_CHANCE: 0.85,
+  FINALE_SETTLE_MAX: 8,
+  FINALE_SETTLE_CHANCE: 0.35
 };
 
 // ===========================
@@ -176,6 +183,7 @@ function charDelay(char, base) {
 
 async function typewriter(el, speed = 100) {
   el.style.display = "block";
+  const runId = (el.dataset.typewriterId = String(Date.now()));
 
   const cursor = document.createElement("span");
   cursor.className = "typewriter-cursor";
@@ -189,12 +197,14 @@ async function typewriter(el, speed = 100) {
   }
 
   for (let i = 0; i < lines.length; i++) {
+    if (el.dataset.typewriterId !== runId) return;
     const line = lines[i];
     const textNode = document.createTextNode("");
     line.p.appendChild(textNode);
     line.p.appendChild(cursor);
 
     for (const char of line.text) {
+      if (el.dataset.typewriterId !== runId) return;
       textNode.textContent += char;
       await wait(charDelay(char, speed));
     }
@@ -204,7 +214,85 @@ async function typewriter(el, speed = 100) {
     }
   }
 
+  if (el.dataset.typewriterId !== runId) return;
   cursor.classList.add("typewriter-cursor--done");
   await wait(3600);
-  cursor.remove();
+  if (el.dataset.typewriterId === runId) cursor.remove();
+}
+
+// ===========================
+// Tree Awakening Finale
+// ===========================
+
+function fillLetterParagraphs(letterEl, letterConfig) {
+  letterEl.textContent = "";
+  const blocks = [
+    letterConfig.paragraph1,
+    letterConfig.paragraph2,
+    letterConfig.paragraph3
+  ];
+  blocks.forEach((lines, index) => {
+    if (index > 0) letterEl.appendChild(document.createElement("br"));
+    lines.forEach((line) => {
+      const p = document.createElement("p");
+      p.textContent = line;
+      letterEl.appendChild(p);
+    });
+  });
+}
+
+function setClockHeadline(text) {
+  const clockText = document.getElementById("clock-text");
+  clockText.textContent = "";
+  const headline = document.createElement("span");
+  headline.className = "name";
+  headline.textContent = text;
+  clockText.appendChild(headline);
+}
+
+async function runTreeAwakeningFinale(tree, config) {
+  const finale = config.birthdayFinale;
+  if (!finale || !finale.letter) {
+    console.error("Missing CONFIG.birthdayFinale");
+    return;
+  }
+
+  const clockBox = document.getElementById("clock-box");
+  const content = document.getElementById("content");
+  const stage = document.getElementById("stage");
+  const letter = document.getElementById("letter");
+
+  console.info("[finale] Tree Awakening started");
+
+  setClockHeadline(finale.timerHeadline);
+  clockBox.classList.add("clock-box--finale");
+
+  content.classList.add("content--finale-dim");
+  tree.finaleMode = "storm";
+
+  const stormBeforePulse = Math.max(
+    0,
+    AnimationConfig.FINALE_STORM_MS - AnimationConfig.FINALE_PULSE_MS
+  );
+  await wait(stormBeforePulse);
+
+  stage.classList.add("stage--awaken");
+  await wait(AnimationConfig.FINALE_PULSE_MS);
+  stage.classList.remove("stage--awaken");
+
+  letter.dataset.typewriterId = "cancelled";
+  letter.classList.add("letter--fade-out");
+  await wait(AnimationConfig.FINALE_LETTER_FADE_MS);
+  letter.classList.remove("letter--fade-out");
+
+  fillLetterParagraphs(letter, finale.letter);
+  content.classList.remove("content--finale-dim");
+
+  if (typeof isDesktopLayout === "function" ? !isDesktopLayout() : !window.matchMedia("(min-width: 1024px)").matches) {
+    letter.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  tree.finaleMode = "settle";
+  await typewriter(letter);
+  console.info("[finale] Tree Awakening settled");
 }

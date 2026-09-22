@@ -13,6 +13,8 @@
   --letter-size: clamp(0.95rem, 3.6vw, 1.05rem);
   --clock-label-size: clamp(1rem, 4vw, 1.25rem);
   --digit-size: clamp(2rem, 10vw, 2.75rem);
+  --finale-accent: #be1a25;
+  --finale-dim: 0.55;
 }
 
 /* ===========================
@@ -179,6 +181,76 @@ body {
 #clock .digit {
   font-size: var(--digit-size);
   font-variant-numeric: tabular-nums;
+  display: inline-block;
+  transform-origin: center bottom;
+}
+
+/* ===========================
+   Tree Awakening Finale
+   =========================== */
+#content {
+  transition: opacity 0.4s ease;
+}
+
+#content.content--finale-dim {
+  opacity: var(--finale-dim);
+}
+
+#letter {
+  transition: opacity 0.3s ease;
+}
+
+#letter.letter--fade-out {
+  opacity: 0;
+}
+
+#clock-box.clock-box--finale .digit {
+  animation: finale-digit-pulse 0.6s ease-out 1;
+  color: var(--finale-accent);
+}
+
+#clock-box.clock-box--finale #clock-text .name {
+  color: var(--finale-accent);
+}
+
+@keyframes finale-digit-pulse {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+#stage {
+  transition: filter 0.4s ease;
+}
+
+#stage.stage--awaken {
+  animation: finale-stage-awaken 0.8s ease-out 1;
+}
+
+#stage.stage--awaken::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  background: radial-gradient(
+    ellipse at 50% 35%,
+    rgba(190, 26, 37, 0.18) 0%,
+    transparent 65%
+  );
+  animation: finale-glow-fade 0.8s ease-out 1 forwards;
+}
+
+@keyframes finale-stage-awaken {
+  0% { filter: brightness(1); }
+  35% { filter: brightness(1.12); }
+  100% { filter: brightness(1); }
+}
+
+@keyframes finale-glow-fade {
+  0% { opacity: 0; }
+  30% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 /* ===========================

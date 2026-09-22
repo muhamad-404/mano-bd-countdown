@@ -444,7 +444,17 @@ class Tree {
       }
     }
 
-    if (this.fallingBlooms.length < AnimationConfig.MAX_FALLING_HEARTS && Math.random() < AnimationConfig.FALLING_SPAWN_CHANCE) {
+    let maxHearts = AnimationConfig.MAX_FALLING_HEARTS;
+    let spawnChance = AnimationConfig.FALLING_SPAWN_CHANCE;
+    if (this.finaleMode === "storm") {
+      maxHearts = AnimationConfig.FINALE_MAX_FALLING;
+      spawnChance = AnimationConfig.FINALE_SPAWN_CHANCE;
+    } else if (this.finaleMode === "settle") {
+      maxHearts = AnimationConfig.FINALE_SETTLE_MAX;
+      spawnChance = AnimationConfig.FINALE_SETTLE_CHANCE;
+    }
+
+    if (this.fallingBlooms.length < maxHearts && Math.random() < spawnChance) {
       this.fallingBlooms.push(this.createFallingBloom());
     }
   }

@@ -9,15 +9,23 @@ function showLoveLetter() {
   clockBox.classList.add("clock-box--visible");
 }
 
-function startClock(config) {
-  const targetMs = new Date(config.targetDate).getTime();
-  if (!Number.isFinite(targetMs)) {
-    console.error("Invalid CONFIG.targetDate:", config.targetDate);
-    return;
-  }
+function startClock(config, tree) {
+  const targetMs = resolveCountdownTargetMs(config);
+  if (targetMs == null) return;
+
   const digits = createClockDOM(config);
-  updateCountdown(targetMs, digits);
-  setInterval(() => updateCountdown(targetMs, digits), AnimationConfig.TIME_UPDATE_INTERVAL);
+  let finaleStarted = false;
+
+  function tick() {
+    const remaining = updateCountdown(targetMs, digits);
+    if (remaining === 0 && !finaleStarted) {
+      finaleStarted = true;
+      runTreeAwakeningFinale(tree, config);
+    }
+  }
+
+  tick();
+  setInterval(tick, AnimationConfig.TIME_UPDATE_INTERVAL);
 }
 
 // ===========================
@@ -58,7 +66,7 @@ async function startApp() {
 
   showLoveLetter();
   startHeartJumpAnimation(tree);
-  startClock(CONFIG);
+  startClock(CONFIG, tree);
 }
 
 document.addEventListener("DOMContentLoaded", startApp);
