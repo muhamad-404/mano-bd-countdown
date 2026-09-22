@@ -17,16 +17,16 @@ const CONFIG = {
       timerHeadline: "Mano ki special day tak…",
       paragraph1: [
         "Mano, kabhi kabhi lagta hai hamari university apni hi choti si duniya thi.",
-        "Sab ke saamne hum bas classmates thay —",
-        "lekin woh hidden corners aur library ke moments sirf humare thay."
+        "Sab ke saamne hum bas classmates the",
+        "lekin woh hidden corners aur library ke moments sirf humare the."
       ],
       paragraph2: [
         "Tumhari gossip, tumhari expressions, tumhari smile, tumhari awaaz…",
         "pata nahi kab yeh sab meri daily life ka hissa ban gaye."
       ],
       paragraph3: [
-        "Us waqt woh moments ordinary lagte thay.",
-        "Ab peeche dekh ke samajh aata hai — kitne special thay.",
+        "Us waqt wo moments ordinary lagte the.",
+        "Ab peeche dekh ke samajh ata hai kitne special the.",
         "Aur unhein yaad karke ab bhi dil garam ho jata hai."
       ]
     },
@@ -38,10 +38,10 @@ const CONFIG = {
       paragraph1: [
         "Mano, mujhe tumhari bohat si choti choti aadatein yaad hain.",
         "Tum kaise baat karti thi, kis baat pe hasti thi,",
-        "aur kab gossip shuru kar deti thi."
+        "aur kab rone lag jati thi or me Chup krwa rha hota tha."
       ],
       paragraph2: [
-        "Woh expressions jo tum bina kuch kahe bana deti thi —",
+        "Woh expressions jo tum bina kuch kahe bana deti thi..",
         "shayad tumhein andaza bhi nahi ke main kitna notice karta tha."
       ],
       paragraph3: [
@@ -62,13 +62,13 @@ const CONFIG = {
         "na woh chota sa bahana ke bas tumhein dekhne aa gaya."
       ],
       paragraph2: [
-        "Hum dono ne thori space li hai — aur shayad ab uski zaroorat bhi hai.",
+        "Hum dono ne thori space li hai.. aur shayad ab uski zaroorat bhi hai.",
         "Lekin space ka matlab yeh nahi ke feelings khatam ho gayi hain."
       ],
       paragraph3: [
-        "Main tumhein ab bhi miss karta hoon, Mano — narmi se, bina pressure ke.",
-        "Tumhara din qareeb aa raha hai,",
-        "aur main chahta hoon tumhein pata chale: tum yaad ho."
+        "Main tumhein ab bhi miss karta hoon,",
+        "Tum sari Zindagi meri Special Person rho gi,",
+        "or me tumhe Hamesha pyaar krta rhu ga."
       ]
     },
     {
@@ -78,18 +78,18 @@ const CONFIG = {
       timerHeadline: "Tum ab bhi special ho",
       paragraph1: [
         "Graduation ke baad zindagi alag si lagti hai.",
-        "University wali rozmarra ki duniya ab peeche hai —",
-        "sab kuch thora different ho gaya hai."
+        "Halake k mujhe University Life Bilkyl bhi Pasand nhi thi",
+        "Lekin Sirf ek hi reason thi Uni Ani ki or wo Tum, tumhari jhalak dekh kr Dil ko khushi milti thi."
       ],
       paragraph2: [
-        "Tumne mujhe beinteha care diya tha; main bhi tumhara khayal rakhta tha.",
-        "Tum meri baby si thi — zabardasti nahi, sirf pyar se.",
-        "Aur tumhari unconditional mohabbat… woh bhoolne wali nahi."
+        "Class me last row me baith kr pure lecture bas tumhe hi Ghoorna",
+        "Lecture ya Sir se zaida tum pr focus krna.",
+        "or jab tumne mur kr dekhna to nazar tum se hata leni... hehe"
       ],
       paragraph3: [
-        "Ab hum pehle jaisi daily closeness mein nahi,",
+        "Ab wo sab closeness to nhi,",
         "lekin tum mere liye ab bhi bohat special ho.",
-        "Yeh choti si cheez tumhare birthday ke liye hai — quietly, from me."
+        "Or Tum hamesha hi mere Dil me close rho gi."
       ]
     },
     {
